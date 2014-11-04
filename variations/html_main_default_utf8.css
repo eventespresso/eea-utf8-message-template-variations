@@ -4,7 +4,7 @@ Created by Ed Molyneux
 */
 /*=========================== TYPOGRAPHY =========================*/
 
-#invoice-header{background-color:red}
+#invoice-hdr { color: red;}
 
 
 #invoice{font-family: DejaVu Sans, Helvetica, Arial, Verdana, sans-serif !important }
