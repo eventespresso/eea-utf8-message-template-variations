@@ -16,6 +16,7 @@ define( 'EE_UTF8_BASENAME', plugin_basename( EE_UTF8_PLUGIN_FILE ));
 define( 'EE_UTF8_PATH', plugin_dir_path( __FILE__ ));
 define( 'EE_UTF8_URL', plugin_dir_url( __FILE__ ));
 define( 'EE_UTF8_ADMIN', EE_UTF8_PATH . 'admin' . DS . 'utf8' . DS );
+define( 'EE_UTF8_FONTS_PATH', EE_UTF8_PATH . 'fonts' . DS );
 Class  EE_UTF8 extends EE_Addon {
 
 	/**
@@ -30,7 +31,7 @@ Class  EE_UTF8 extends EE_Addon {
 			'UTF8',
 			array(
 				'version' 					=> EE_UTF8_VERSION,
-				'min_core_version' => '4.3.0.dev.000',
+				'min_core_version' => '4.5.0.dev.000',
 				'main_file_path' 				=> EE_UTF8_PLUGIN_FILE,
 				'autoloader_paths' => array(
 					'EE_UTF8' 						=> EE_UTF8_PATH . 'EE_UTF8.class.php',
