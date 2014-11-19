@@ -90,6 +90,39 @@ Class  EE_UTF8 extends EE_Addon {
 
 	}
 
+	public function initialize_db(){
+		add_action( 'admin_init' , array( $this, 'ensure_fonts_in_uploads_directory' ) );
+		parent::initialize_db();
+	}
+
+	/**
+	  * Copies all the font files from the utf8-fonts directory and from core
+	  * @return boolean
+	  */
+	 public function ensure_fonts_in_uploads_directory(){
+		 echo "COPYING FONT FILES NOW";
+		 $upload_fonts_directory = EVENT_ESPRESSO_UPLOAD_DIR . 'fonts' . DS ;
+		 if( ! EEH_File::ensure_folder_exists_and_is_writable( $upload_fonts_directory ) ){
+			 EE_Error::add_error( sprintf( __( 'The Event Espresso UTF8 Variation addon could not properly move the font files from %1$s to %2$s because the destination folder is not writeable. Please either adjust the destination folders permission or move the font files over manually', 'event_espresso' ), EE_UTF8_FONTS_PATH, $upload_fonts_directory ) );
+			 return FALSE;
+		 }
+		 //first copy over files in the utf8 addon
+		 $addon_fonts = EEH_File::get_contents_of_folders( array( EE_UTF8_FONTS_PATH ), TRUE );
+		 $core_fonts = EEH_File::get_contents_of_folders( array( EE_THIRD_PARTY . 'dompdf' . DS . 'lib' . DS . 'fonts' . DS ), TRUE );
+		 $fonts = array_merge( $core_fonts, $addon_fonts );
+		 try{
+			foreach( $fonts as $filepath ){
+				$new_file_name = $upload_fonts_directory . basename( $filepath);
+				if( !EEH_File::exists( $new_file_name )){
+					EEH_File::copy( $filepath, $new_file_name , FALSE );
+				}
+			}
+		 }catch( EE_Error $e ){
+			 EE_Error::add_error( $e->getMessage(), __FILE__, __FUNCTION__, __LINE__ );
+			 return FALSE;
+		 }
+		 return TRUE;
+	 }
 
 
 

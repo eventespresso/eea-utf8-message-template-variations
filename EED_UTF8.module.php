@@ -61,7 +61,6 @@ class EED_UTF8 extends EED_Module {
 		 // ajax hooks
 		 add_action( 'wp_ajax_get_utf8', array( 'EED_UTF8', 'get_utf8' ));
 		 add_action( 'wp_ajax_nopriv_get_utf8', array( 'EED_UTF8', 'get_utf8' ));
-		 add_action( 'admin_init' , array( 'EED_UTF8', 'ensure_fonts_in_uploads_directory' ) );
 	 }
 
 	 public static function get_utf8(){
@@ -69,30 +68,7 @@ class EED_UTF8 extends EED_Module {
 		 die;
 	 }
 
-	 /**
-	  * Copies all the font files from the utf8-fonts directory and from core
-	  * @return boolean
-	  */
-	 public static function ensure_fonts_in_uploads_directory(){
-		 $upload_fonts_directory = EVENT_ESPRESSO_UPLOAD_DIR . 'fonts' . DS ;
-		 if( ! EEH_File::ensure_folder_exists_and_is_writable( $upload_fonts_directory ) ){
-			 EE_Error::add_error( sprintf( __( 'The Event Espresso UTF8 Variation addon could not properly move the font files from %1$s to %2$s because the destination folder is not writeable. Please either adjust the destination folders permission or move the font files over manually', 'event_espresso' ), EE_UTF8_FONTS_PATH, $upload_fonts_directory ) );
-			 return FALSE;
-		 }
-		 //first copy over files in the utf8 addon
-		 $addon_fonts = EEH_File::get_contents_of_folders( array( EE_UTF8_FONTS_PATH ), TRUE );
-		 $core_fonts = EEH_File::get_contents_of_folders( array( EE_THIRD_PARTY . 'dompdf' . DS . 'lib' . DS . 'fonts' . DS ), TRUE );
-		 $fonts = array_merge( $core_fonts, $addon_fonts );
-		 try{
-			foreach( $fonts as $filepath ){
-				EEH_File::copy( $filepath, $upload_fonts_directory . basename( $filepath), FALSE );
-			}
-		 }catch( EE_Error $e ){
-			 EE_Error::add_error( $e->getMessage() );
-			 return FALSE;
-		 }
-		 return TRUE;
-	 }
+
 
 
 	/**
