@@ -80,8 +80,8 @@ class EED_UTF8 extends EED_Module {
 			 return FALSE;
 		 }
 		 //first copy over files in the utf8 addon
-		 $addon_fonts = EEH_File::get_contents_of_folders( array( EE_UTF8_FONTS_PATH ) );
-		 $core_fonts = EEH_File::get_contents_of_folders( array( EE_THIRD_PARTY . 'dompdf' . DS . 'lib' . DS . 'fonts' . DS ) );
+		 $addon_fonts = EEH_File::get_contents_of_folders( array( EE_UTF8_FONTS_PATH ), TRUE );
+		 $core_fonts = EEH_File::get_contents_of_folders( array( EE_THIRD_PARTY . 'dompdf' . DS . 'lib' . DS . 'fonts' . DS ), TRUE );
 		 $fonts = array_merge( $core_fonts, $addon_fonts );
 		 try{
 			foreach( $fonts as $filepath ){

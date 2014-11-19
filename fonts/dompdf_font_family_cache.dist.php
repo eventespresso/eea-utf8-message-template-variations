@@ -34,6 +34,20 @@
     'italic' => DOMPDF_FONT_DIR . 'Helvetica-Oblique',
     'bold_italic' => DOMPDF_FONT_DIR . 'Helvetica-BoldOblique',
   ),
+//  'zapfdingbats' =>
+//  array (
+//    'normal' => DOMPDF_FONT_DIR . 'ZapfDingbats',
+//    'bold' => DOMPDF_FONT_DIR . 'ZapfDingbats',
+//    'italic' => DOMPDF_FONT_DIR . 'ZapfDingbats',
+//    'bold_italic' => DOMPDF_FONT_DIR . 'ZapfDingbats',
+//  ),
+//  'symbol' =>
+//  array (
+//    'normal' => DOMPDF_FONT_DIR . 'Symbol',
+//    'bold' => DOMPDF_FONT_DIR . 'Symbol',
+//    'italic' => DOMPDF_FONT_DIR . 'Symbol',
+//    'bold_italic' => DOMPDF_FONT_DIR . 'Symbol',
+//  ),
   'serif' =>
   array (
     'normal' => DOMPDF_FONT_DIR . 'Times-Roman',
@@ -62,4 +76,36 @@
     'italic' => DOMPDF_FONT_DIR . 'DejaVuSans-Oblique',
     'normal' => DOMPDF_FONT_DIR . 'DejaVuSans',
   ),
+  'dejavu sans light' =>
+  array (
+    'normal' => DOMPDF_FONT_DIR . 'DejaVuSans-ExtraLight',
+  ),
+//  'dejavu sans condensed' =>
+//  array (
+//    'bold' => DOMPDF_FONT_DIR . 'DejaVuSansCondensed-Bold',
+//    'bold_italic' => DOMPDF_FONT_DIR . 'DejaVuSansCondensed-BoldOblique',
+//    'italic' => DOMPDF_FONT_DIR . 'DejaVuSansCondensed-Oblique',
+//    'normal' => DOMPDF_FONT_DIR . 'DejaVuSansCondensed',
+//  ),
+//  'dejavu sans mono' =>
+//  array (
+//    'bold' => DOMPDF_FONT_DIR . 'DejaVuSansMono-Bold',
+//    'bold_italic' => DOMPDF_FONT_DIR . 'DejaVuSansMono-BoldOblique',
+//    'italic' => DOMPDF_FONT_DIR . 'DejaVuSansMono-Oblique',
+//    'normal' => DOMPDF_FONT_DIR . 'DejaVuSansMono',
+//  ),
+//  'dejavu serif' =>
+//  array (
+//    'bold' => DOMPDF_FONT_DIR . 'DejaVuSerif-Bold',
+//    'bold_italic' => DOMPDF_FONT_DIR . 'DejaVuSerif-BoldItalic',
+//    'italic' => DOMPDF_FONT_DIR . 'DejaVuSerif-Italic',
+//    'normal' => DOMPDF_FONT_DIR . 'DejaVuSerif',
+//  ),
+//  'dejavu serif condensed' =>
+//  array (
+//    'bold' => DOMPDF_FONT_DIR . 'DejaVuSerifCondensed-Bold',
+//    'bold_italic' => DOMPDF_FONT_DIR . 'DejaVuSerifCondensed-BoldItalic',
+//    'italic' => DOMPDF_FONT_DIR . 'DejaVuSerifCondensed-Italic',
+//    'normal' => DOMPDF_FONT_DIR . 'DejaVuSerifCondensed',
+//  ),
 ) ?>
