@@ -100,10 +100,9 @@ Class  EE_UTF8 extends EE_Addon {
 	  * @return boolean
 	  */
 	 public function ensure_fonts_in_uploads_directory(){
-		 echo "COPYING FONT FILES NOW";
 		 $upload_fonts_directory = EVENT_ESPRESSO_UPLOAD_DIR . 'fonts' . DS ;
 		 if( ! EEH_File::ensure_folder_exists_and_is_writable( $upload_fonts_directory ) ){
-			 EE_Error::add_error( sprintf( __( 'The Event Espresso UTF8 Variation addon could not properly move the font files from %1$s to %2$s because the destination folder is not writeable. Please either adjust the destination folders permission or move the font files over manually', 'event_espresso' ), EE_UTF8_FONTS_PATH, $upload_fonts_directory ) );
+			 EE_Error::add_error( sprintf( __( 'The Event Espresso UTF8 Variation addon could not properly move the font files from %1$s to %2$s because the destination folder is not writeable. Please either adjust the destination folders permission or move the font files over manually', 'event_espresso' ), EE_UTF8_FONTS_PATH, $upload_fonts_directory )- __FILE__, __FUNCTION__, __LINE__ );
 			 return FALSE;
 		 }
 		 //first copy over files in the utf8 addon
