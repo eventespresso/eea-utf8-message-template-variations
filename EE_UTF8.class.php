@@ -36,7 +36,6 @@ Class  EE_UTF8 extends EE_Addon {
 				'autoloader_paths' => array(
 					'EE_UTF8' 						=> EE_UTF8_PATH . 'EE_UTF8.class.php',
 				),
-				'module_paths' 		=> array( EE_UTF8_PATH . 'EED_UTF8.module.php' ),
 				// if plugin update engine is being used for auto-updates. not needed if PUE is not being used.
 				'pue_options'			=> array(
 					'pue_plugin_slug' => 'espresso_utf8',
