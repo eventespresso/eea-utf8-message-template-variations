@@ -19,6 +19,8 @@ define( 'EE_UTF8_ADMIN', EE_UTF8_PATH . 'admin' . DS . 'utf8' . DS );
 define( 'EE_UTF8_FONTS_PATH', EE_UTF8_PATH . 'fonts' . DS );
 Class  EE_UTF8 extends EE_Addon {
 
+	const copy_files_option_name = 'ee_plz_copy_font_files_to_uploads';
+
 	/**
 	 * class constructor
 	 */
@@ -75,6 +77,9 @@ Class  EE_UTF8 extends EE_Addon {
 				)
 			);
 		EE_Register_Messages_Template_Variations::register( 'utf8', $variations_setup );
+		if( is_admin() ){
+			self::additional_admin_hooks();
+		}
 	}
 
 
@@ -85,20 +90,28 @@ Class  EE_UTF8 extends EE_Addon {
 	 *  @access 	public
 	 *  @return 	void
 	 */
-	public function additional_admin_hooks() {
-
+	public static function additional_admin_hooks() {
+		//if the font directory is still in core, something's what and we should
+		//make sure we've moved the font files into uploads directory
+		if( get_option( self::copy_files_option_name ) ) {
+			add_action( 'admin_init' , array( 'EE_UTF8', 'ensure_fonts_in_uploads_directory' ) );
+		}
 	}
 
+
 	public function initialize_db(){
-		add_action( 'admin_init' , array( $this, 'ensure_fonts_in_uploads_directory' ) );
+		//set an option so on the next normal admin request we'll copy over the files
+		if( ! get_option( self::copy_files_option_name ) ) {
+			add_option( self::copy_files_option_name, TRUE, NULL, FALSE );
+		}
 		parent::initialize_db();
 	}
 
 	/**
-	  * Copies all the font files from the utf8-fonts directory and from core
+	  * Copies all the font files from the utf8-fonts directory and from core. If the files are already in the wp-content/uploads/fonts we just leave them be
 	  * @return boolean
 	  */
-	 public function ensure_fonts_in_uploads_directory(){
+	 public static function ensure_fonts_in_uploads_directory(){
 		 $upload_fonts_directory = EVENT_ESPRESSO_UPLOAD_DIR . 'fonts' . DS ;
 		 if( ! EEH_File::ensure_folder_exists_and_is_writable( $upload_fonts_directory ) ){
 			 EE_Error::add_error( sprintf( __( 'The Event Espresso UTF8 Variation addon could not properly move the font files from %1$s to %2$s because the destination folder is not writeable. Please either adjust the destination folders permission or move the font files over manually', 'event_espresso' ), EE_UTF8_FONTS_PATH, $upload_fonts_directory )- __FILE__, __FUNCTION__, __LINE__ );
@@ -115,6 +128,8 @@ Class  EE_UTF8 extends EE_Addon {
 					EEH_File::copy( $filepath, $new_file_name , FALSE );
 				}
 			}
+			//ok we've copied over the files, so we can mark the job as done
+			delete_option( self::copy_files_option_name );
 		 }catch( EE_Error $e ){
 			 EE_Error::add_error( $e->getMessage(), __FILE__, __FUNCTION__, __LINE__ );
 			 return FALSE;
