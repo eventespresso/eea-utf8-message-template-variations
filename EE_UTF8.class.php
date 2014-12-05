@@ -120,7 +120,9 @@ Class  EE_UTF8 extends EE_Addon {
 		 //first copy over files in the utf8 addon
 		 $addon_fonts = EEH_File::get_contents_of_folders( array( EE_UTF8_FONTS_PATH ), TRUE );
 		 $core_fonts = EEH_File::get_contents_of_folders( array( EE_THIRD_PARTY . 'dompdf' . DS . 'lib' . DS . 'fonts' . DS ), TRUE );
-		 $fonts = array_merge( $core_fonts, $addon_fonts );
+		 //merge the arrays together, but make sure the addon files are given preference
+		 //so that they get copied over first (and the core files that are the same WON'T get copied)
+		 $fonts = array_merge( $addon_fonts, $core_fonts );
 		 try{
 			foreach( $fonts as $filepath ){
 				$new_file_name = $upload_fonts_directory . basename( $filepath);
