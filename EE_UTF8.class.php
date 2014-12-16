@@ -40,7 +40,7 @@ Class  EE_UTF8 extends EE_Addon {
 				),
 				// if plugin update engine is being used for auto-updates. not needed if PUE is not being used.
 				'pue_options'			=> array(
-					'pue_plugin_slug' => 'espresso_utf8',
+					'pue_plugin_slug' => 'eea-utf8-variation',
 					'plugin_basename' => EE_UTF8_BASENAME,
 					'checkPeriod' => '24',
 					'use_wp_update' => FALSE,
