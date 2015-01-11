@@ -1,0 +1,16 @@
+{
+	"versionFile" : "eea-utf8-variation.php",
+	"slug" : "eea-utf8-variation",
+	"name" : "EE4 UTF8 Variation",
+	"archiveBaseUrl" : "http://build.eventespresso.com/",
+	"archiveBasePath" : "~/www/build/",
+	"releaseFilesRemove" : [
+		"src/tests/**",
+		"src/info.json",
+		"src/circle.yml",
+		"src/readme.txt"
+	],
+	"github" : false,
+	"awsbucket" : "",
+	"awsregion" : ""
+}
