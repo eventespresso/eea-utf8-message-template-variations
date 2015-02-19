@@ -12,5 +12,7 @@
 	],
 	"github" : false,
 	"awsbucket" : "",
-	"awsregion" : ""
+	"awsregion" : "",
+	"srcBuildFolderName" : "eea-utf8-variation",
+	"textDomain" : "event_espresso"
 }
