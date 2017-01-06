@@ -1,56 +1,61 @@
-<?php if ( ! defined( 'EVENT_ESPRESSO_VERSION' )) { exit(); }
+<?php
+defined('EVENT_ESPRESSO_VERSION') || exit;
+
+// define the plugin directory path and URL
+define('EE_UTF8_BASENAME', plugin_basename(EE_UTF8_PLUGIN_FILE));
+define('EE_UTF8_PATH', plugin_dir_path(__FILE__));
+define('EE_UTF8_URL', plugin_dir_url(__FILE__));
+define('EE_UTF8_ADMIN', EE_UTF8_PATH . 'admin' . DS . 'utf8' . DS);
+define('EE_UTF8_FONTS_PATH', EE_UTF8_PATH . 'fonts' . DS);
 /**
- * ------------------------------------------------------------------------
- *
  * Class  EE_UTF8
  *
  * @package			Event Espresso
  * @subpackage		espresso-utf8
- * @author			    Brent Christensen
- * @ version		 	$VID:$
- *
- * ------------------------------------------------------------------------
+ * @author			Brent Christensen
+ * @ version		$VID:$
  */
-// define the plugin directory path and URL
-define( 'EE_UTF8_BASENAME', plugin_basename( EE_UTF8_PLUGIN_FILE ));
-define( 'EE_UTF8_PATH', plugin_dir_path( __FILE__ ));
-define( 'EE_UTF8_URL', plugin_dir_url( __FILE__ ));
-define( 'EE_UTF8_ADMIN', EE_UTF8_PATH . 'admin' . DS . 'utf8' . DS );
-define( 'EE_UTF8_FONTS_PATH', EE_UTF8_PATH . 'fonts' . DS );
 Class  EE_UTF8 extends EE_Addon {
 
 	const copy_files_option_name = 'ee_plz_copy_font_files_to_uploads';
 
-	/**
-	 * class constructor
-	 */
-	public function __construct() {
-	}
-
 	public static function register_addon() {
 		// register addon via Plugin API
-		EE_Register_Addon::register(
-			'UTF8',
-			array(
-				'version' 					=> EE_UTF8_VERSION,
-				'min_core_version' => '4.5.0.dev.000',
-				'main_file_path' 				=> EE_UTF8_PLUGIN_FILE,
-				'autoloader_paths' => array(
-					'EE_UTF8' 						=> EE_UTF8_PATH . 'EE_UTF8.class.php',
-				),
-				// if plugin update engine is being used for auto-updates. not needed if PUE is not being used.
-				'pue_options'			=> array(
-					'pue_plugin_slug' => 'eea-utf8-variation',
-					'plugin_basename' => EE_UTF8_BASENAME,
-					'checkPeriod' => '24',
-					'use_wp_update' => FALSE,
-					),
-			)
-		);
-		add_action( 'EE_Brewing_Regular___messages_caf',  array( 'EE_UTF8', 'add_utf8_variations' ) );
+        EE_Register_Addon::register(
+            'UTF8',
+            array(
+                'version'          => EE_UTF8_VERSION,
+                'min_core_version' => '4.9.26.rc.000',
+                'main_file_path'   => EE_UTF8_PLUGIN_FILE,
+                'autoloader_paths' => array(
+                    'EE_UTF8' => EE_UTF8_PATH . 'EE_UTF8.class.php',
+                ),
+                // if plugin update engine is being used for auto-updates. not needed if PUE is not being used.
+                'pue_options'      => array(
+                    'pue_plugin_slug' => 'eea-utf8-variation',
+                    'plugin_basename' => EE_UTF8_BASENAME,
+                    'checkPeriod'     => '24',
+                    'use_wp_update'   => false,
+                ),
+            )
+        );
 	}
 
-	public static function add_utf8_variations() {
+
+
+    /**
+     * a safe space for addons to add additional logic like setting hooks
+     * that will run immediately after addon registration
+     * making this a great place for code that needs to be "omnipresent"
+     */
+    public function after_registration()
+    {
+        add_action('EE_Brewing_Regular___messages_caf', array('EE_UTF8', 'add_utf8_variations'));
+    }
+
+
+
+    public static function add_utf8_variations() {
 		if ( ! class_exists( 'EE_Register_Messages_Template_Variations' ) ) {
 			return;
 		}
@@ -107,10 +112,15 @@ Class  EE_UTF8 extends EE_Addon {
 		parent::initialize_db();
 	}
 
-	/**
-	  * Copies all the font files from the utf8-fonts directory and from core. If the files are already in the wp-content/uploads/fonts we just leave them be
-	  * @return boolean
-	  */
+
+
+    /**
+     * Copies all the font files from the utf8-fonts directory and from core.
+     * If the files are already in the wp-content/uploads/fonts we just leave them be
+     *
+     * @return boolean
+     * @throws \EE_Error
+     */
 	 public static function ensure_fonts_in_uploads_directory(){
 		 $upload_fonts_directory = EVENT_ESPRESSO_UPLOAD_DIR . 'fonts' . DS ;
 		 if( ! EEH_File::ensure_folder_exists_and_is_writable( $upload_fonts_directory ) ){
