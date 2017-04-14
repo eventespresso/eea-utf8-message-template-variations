@@ -3,7 +3,7 @@
   Plugin Name: Event Espresso - UTF8 Template Variation (EE4.5+)
   Plugin URI: http://www.eventespresso.com
   Description: The Event Espresso UTF8 Template Variation addons add the "Simple UTF8" template style for the Receipt and Invoice messages. This style supports UTF8 characters in the PDF. Compatible with Event Espresso 4.5 or higher
-  Version: 1.0.0.rc.002
+  Version: 1.0.0.rc.003
   Author: Event Espresso
   Author URI: http://www.eventespresso.com
   Copyright 2014 Event Espresso (email : support@eventespresso.com)
@@ -36,7 +36,7 @@
  *
  * ------------------------------------------------------------------------
  */
-define( 'EE_UTF8_VERSION', '1.0.0.rc.002' );
+define( 'EE_UTF8_VERSION', '1.0.0.rc.003' );
 define( 'EE_UTF8_PLUGIN_FILE',  __FILE__ );
 function load_espresso_utf8() {
 if ( class_exists( 'EE_Addon' )) {
